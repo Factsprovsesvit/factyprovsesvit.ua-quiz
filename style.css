@@ -1,0 +1,235 @@
+body {
+    background-color: #092a50;
+    font-family: 'Comfortaa', cursive;
+    color: #ade0f9;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Змінюємо напрямок, щоб елементи йшли один за одним */
+    align-items: center;
+    min-height: 100vh; /* Забезпечуємо, що body займає мінімум всю висоту вікна */
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+    border-radius: 50%; /* Якщо логотип круглий, можна додати */
+}
+
+h1 {
+    color: #ade0f9;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.quiz-container {
+    /* Змінюємо display з grid на flex, щоб картки йшли одна за одною */
+    display: flex;
+    flex-direction: column; /* Забезпечуємо вертикальне розташування */
+    gap: 20px; /* Відстань між картками */
+    width: 100%;
+    max-width: 800px; /* Можна зменшити max-width, щоб картки були не надто широкими */
+    margin-bottom: 30px;
+    padding: 0 10px; /* Додаємо невеликий відступ по боках для мобільних пристроїв */
+}
+
+.question-card {
+    background-color: #ade0f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%; /* Забезпечуємо, що картка займає всю доступну ширину контейнера */
+    box-sizing: border-box; /* Включаємо padding у ширину */
+}
+
+.question-card h3 {
+    color: #092a50;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.question-card hr {
+    border: none;
+    border-top: 1px solid #092a50;
+    margin-bottom: 15px;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #092a50;
+    padding: 8px 0;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.option input[type="radio"] {
+    display: none; /* Ховаємо стандартні радіокнопки */
+}
+
+.custom-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #092a50;
+    border-radius: 50%;
+    margin-right: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.option.correct {
+    background-color: #28a745; /* Насичений зелений */
+    color: white;
+}
+
+.option.correct .custom-radio {
+    border-color: white;
+    background-color: white;
+}
+
+.option.correct .custom-radio::after {
+    content: '✔';
+    color: #28a745;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.option.wrong {
+    background-color: #dc3545; /* Насичений червоний */
+    color: white;
+}
+
+.option.wrong .custom-radio {
+    border-color: white;
+    background-color: white;
+}
+
+.option.wrong .custom-radio::after {
+    content: '✖';
+    color: #dc3545;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.submit-button {
+    background-color: #28a745; /* Зелений */
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 30px;
+}
+
+.submit-button:hover {
+    background-color: #218838;
+}
+
+/* Модальне вікно для результатів */
+.modal {
+    display: none; /* Приховано за замовчуванням */
+    position: fixed; /* Займає всю сторінку */
+    z-index: 1; /* Поверх всіх інших елементів */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Дозволити прокрутку, якщо вміст завеликий */
+    background-color: rgba(0,0,0,0.7); /* Напівпрозорий чорний фон */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #ade0f9;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    color: #092a50;
+}
+
+.close-button {
+    color: #092a50;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #555;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#scoreText {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#scoreMessage {
+    font-size: 1.3em;
+}
+
+/* Адаптивність для менших екранів */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .question-card {
+        padding: 15px;
+    }
+
+    .question-card h3 {
+        font-size: 1em;
+    }
+
+    .option {
+        font-size: 0.9em;
+    }
+
+    .custom-radio {
+        width: 18px;
+        height: 18px;
+    }
+
+    .submit-button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+}
